@@ -1,0 +1,134 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block script %}
+    <script>
+
+    </script>
+{% endblock %}
+
+{% block main %}
+    <section id="interface">
+        <div id="dirtySide">
+            <div class="dirtyStats"> 
+                Dirty $: <span id="dirtyCash">0 / 1000</span>
+                Dirty $/sec: <span id="dirtyIncomePerSec">$10</span>
+            </div>
+            <div class="dirtyInterface">
+                <div id="stealInterface">
+                    <input id="interfaceImage" type=image draggable="false" src="static\images\steal.png" onClick="incomeDirty(stealAmount.increment)" class="hovertext" data-hover="Illegally aquire some cash!"/>
+                    <div>
+                        <button type="button" onClick="incomeDirty(stealAmount.increment)" class="hovertext" data-hover="Illegally aquire some cash!">Buy Sink</button>
+                        Sinks: <span id="sinks"></span>
+                        Cost: <span id="sinkCost"></span>
+                    </div>
+                </div>
+                <div id="moneyPrinterInterface">
+                    <input id="interfaceImage" type=image draggable="false" src="static\images\printer.png" onClick="buyPrinter()" class="hovertext" data-hover="Print some dirty money!"/>
+                    <div>
+                        <button type="button" onClick="buyPrinter()" class="hovertext" data-hover="Print some dirty money!">Buy Printer</button>
+                        Printers: <span id="printers"></span>
+                        Cost: <span id="printerCost"></span>
+                    </div>
+                </div>
+                <div id="blackMarketInterface">
+                    <input id="interfaceImage" type=image draggable="false" src="static\images\blackmarket.png" onClick="buyMarket()" class="hovertext" data-hover="Sell goods on the black market!"/>
+                    <div>
+                        <button type="button" onClick="buyMarket()" class="hovertext" data-hover="Sell goods on the black market!">Buy Market</button>
+                        Markets: <span id="markets"></span>
+                        Cost: <span id="marketCost"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="cleanSide">
+            <div class="cleanStats">
+                Clean $: <span id="cleanCash">0</span>
+                Clean $/sec: <span id="cleanIncomePerSec">$0</span>
+            </div>
+            <div class="cleanInterface">
+                <div id="sinkInterface">
+                    <input id="interfaceImage" type=image draggable="false" src="static\images\sink.png" onClick="launder(launderAmount.increment)" class="hovertext" data-hover="Clean $1.00, minus tax of course!"/>
+                    <div>
+                        <button type="button" onClick="launder(launderAmount.increment)" class="hovertext" data-hover="Increase money cleaned per click!">Buy Sink</button>
+                        Sinks: <span id="sinks">0</span>
+                        Cost: <span id="sinkCost">10</span>
+                    </div>
+                </div>
+                <div id="machineInterface">
+                    <input id="interfaceImage" type=image draggable="false" src="static\images\machine.png" onClick="buyMachine()" class="hovertext" data-hover="Automagically clean your money!"/>
+                    <div>
+                        <button type="button" onClick="buyMachine()" class="hovertext" data-hover="Automagically clean your money!">Buy Laundry Machine</button>
+                        Laundry Machines: <span id="machines">0</span>
+                        Cost: <span id="machineCost">100</span>
+                    </div>
+                </div>
+                <div id="laundromatInterface">
+                    <input id="interfaceImage" type=image draggable="false" src="static\images\laundromat.png" onClick="buyLaundromat()"class="hovertext" data-hover="Clean even more money!"/>
+                    <div>
+                        <button type="button" onClick="buyLaundromat()"class="hovertext" data-hover="Clean even more money!">Buy Laundromat</button>
+                        Laundromats: <span id="laundromats">0</span>
+                        Cost: <span id="laundromatCost">1000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+<button type="button" onClick="launder(launderAmount.increment)" class="hovertext" data-hover="Clean $1.00, minus tax of course!">Launder</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div>
+        
+        Tax: <span id="taxRate">20%</span>
+        
+    </div>
+
+    <div class="centered" id="raid">RAID!</div>
+
+    <span id="risk">Risk: 0</span>
+
+    <div class="risk">
+        <div class="progress" id="riskProgressBar">
+            <div class="progress-fill" id="riskProgressBarFill"></div>
+            <!-- <div class="progress-text" data-stages="0:Safe,1:Risky,5:Dangerous!"></div>-->
+        </div>
+    </div>
+    
+    <div id="temp">
+        <button type="button" onClick="increaseDirtyIncome(1)">Increase Dirty Income</button> 
+        <button type="button" onClick="requestClean(100)">Request 100 clean</button>
+        <button type="button" onClick="requestClean(1000)">Request 1000 clean</button>
+        <button type="button" onClick="requestClean(10000)">Request 10,000 clean</button>
+        <button type="button" onClick="requestDirty(100)">Request 100 dirty</button>
+        <button type="button" onClick="requestDirty(1000)">Request 1000 dirty</button>
+        <button type="button" onClick="requestDirty(10000)">Request 10,000 dirty</button>
+    </div>
+    
+   
+
+    
+
+    <!--
+    <button type="button" onClick="buyShop()">Buy Shop</button>
+    Shops: <span id="shops">0</span><br />
+    Cost: <span id="shopCost">1000</span>
+    -->
+
+{% endblock %}

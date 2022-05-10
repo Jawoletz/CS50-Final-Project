@@ -1,0 +1,83 @@
+/*#interface {
+    float: left;
+    width: 50%;
+}*/
+
+#interface {
+    text-align: center;
+}
+
+#interface div {
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+#dirtySide {
+    float: left;
+    width: 40%;
+}
+
+#cleanSide {
+    float: right;
+    width: 40%;
+}
+
+#interfaceImage {
+    max-height: 100%;
+    max-width: 25%;
+}
+
+#temp {
+    display: block;
+    text-align: center
+}
+
+#temp button {
+    background-color: dimgray;
+    margin-block: 3px;
+}
+
+html button {
+    border: 2px solid black;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.risk {
+    display: inline-block;
+}
+
+#risk {
+    display: inline-block;
+    vertical-align: text-bottom;
+    margin-left: 12px;
+}
+
+#raid {
+    font-size: 200px;
+    font-weight: bolder;
+    color: red;
+    visibility: hidden;
+}
+
+.progress {
+    width: 200px;
+    height: 5px;
+    margin: 0px;
+}
+
+.progress-fill {
+    width: 0%;
+    border-radius: 5px;
+    background: red;
+    margin: 0px;
+}
+
+.progress-text {
+    padding: 10px;
+    text-align: center;
+    color: "";
+    font-size: "";
+    font-style: "";
+    font-family: "";
+}

@@ -1,0 +1,35 @@
+  .centered {
+    position: fixed; /* or absolute */
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+  }
+
+  html body {
+    font-family: sans-serif;
+    user-select: none;
+  }
+
+  div {
+    display: block;
+}
+
+  .hero-image {
+    background-image: url("images/flying-money.png");
+    background-color: #cccccc;
+    height: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+  
+  .hero-text {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+  }

@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block script %}
+    <script>
+
+    </script>
+{% endblock %}
+
+{% block main %}
+    <div>
+        Dirty $: <span id="dirtyCash">0 / 1000</span>
+        Dirty $/sec: <span id="dirtyIncomePerSec">$10</span>
+        <button type="button" onClick="manualLaunder(launderAmount.increment)" class="hovertext" data-hover="Clean $1.00, minus tax of course!">Launder</button>
+        Clean $: <span id="cleanCash">0</span>
+        Clean $/sec: <span id="cleanIncomePerSec">$0</span>
+        Tax: <span id="taxRate">20%</span>
+        
+    </div>
+
+    <div class="centered" id="raid">RAID!</div>
+
+    <span id="risk">Risk: 0</span>
+
+    <div class="risk">
+        <div class="progress" id="riskProgressBar">
+            <div class="progress-fill" id="riskProgressBarFill"></div>
+            <!--<div class="progress-text" data-stages="0:Safe,1:Risky,5:Dangerous!"></div>-->
+        </div>
+    </div>
+    
+    <div id="temp">
+        <button type="button" onClick="increaseDirtyIncome(1)">Increase Dirty Income</button> 
+        <button type="button" onClick="requestClean(100)">Request 100 clean</button>
+        <button type="button" onClick="requestClean(1000)">Request 1000 clean</button>
+        <button type="button" onClick="requestClean(10000)">Request 10,000 clean</button>
+        <button type="button" onClick="requestDirty(100)">Request 100 dirty</button>
+        <button type="button" onClick="requestDirty(1000)">Request 1000 dirty</button>
+        <button type="button" onClick="requestDirty(10000)">Request 10,000 dirty</button>
+    </div>
+    
+    <div>
+        <button type="button" onClick="buySink()" class="hovertext" data-hover="Increase money cleaned per click!">Buy Sink</button>
+        Sinks: <span id="sinks">0</span>
+        Cost: <span id="sinkCost">10</span>
+    </div>
+
+    <div>
+        <button type="button" onClick="buyMachine()" class="hovertext" data-hover="Automagically clean your money!">Buy Laundry Machine</button>
+        Laundry Machines: <span id="machines">0</span>
+        Cost: <span id="machineCost">100</span>
+    </div>
+
+    <div>
+        <button type="button" onClick="buyLaundromat()"class="hovertext" data-hover="Clean even more money!">Buy Laundromat</button>
+        Laundromats: <span id="laundromats">0</span>
+        Cost: <span id="laundromatCost">1000</span>
+    </div>
+
+    <!--
+    <button type="button" onClick="buyShop()">Buy Shop</button>
+    Shops: <span id="shops">0</span><br />
+    Cost: <span id="shopCost">1000</span>
+    -->
+
+{% endblock %}
