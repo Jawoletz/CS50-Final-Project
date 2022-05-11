@@ -148,17 +148,36 @@ function initialize() {
     document.getElementById("detergentCost").innerHTML = detergent.require.cleanCash;
     document.getElementById("laundromatCost").innerHTML = laundromat.require.cleanCash;
     document.getElementById("accountantCost").innerHTML = accountant.require.cleanCash;
+
+    // Add event listeners
+    document.getElementById("stealButton").addEventListener("click", function() {
+        incomeDirty(stealAmount.increment * (1 + (tape.total * tape.multiplier)));
+    });
+    document.getElementById("buyTape").addEventListener("click", buyTape);
+    document.getElementById("buyPrinter").addEventListener("click", buyPrinter);
+    document.getElementById("buyInk").addEventListener("click", buyInk);
+    document.getElementById("buyMarket").addEventListener("click", buyMarket);
+    document.getElementById("buyGuard").addEventListener("click", buyGuard);
+    //document.getElementById("sinkCost").addEventListener("click", );
+    document.getElementById("launderButton").addEventListener("click", function() {
+        launder(launderAmount.increment * (1 + (soap.total * soap.multiplier)));
+    });
+    document.getElementById("buySoap").addEventListener("click", buySoap);
+    document.getElementById("buyMachine").addEventListener("click", buyMachine);
+    document.getElementById("buyDetergent").addEventListener("click", buyDetergent);
+    document.getElementById("buyLaundromat").addEventListener("click", buyLaundromat);
+    document.getElementById("buyAccountant").addEventListener("click", buyAccountant);
 }
 
 // Updates dirty money display
 function updateDirty() {
     document.getElementById("dirtyCash").innerHTML = prettify(dirtyCash.total) + " / " + dirtyLimit.total;
-    document.getElementById("dirtyIncomePerSec").innerHTML = ((printer.total * printer.production * (1 + (ink.total * ink.multiplier))) + (market.total * market.production * (1 + (guard.total * guard.multiplier))))
+    document.getElementById("dirtyIncomePerSec").innerHTML = prettify(((printer.total * printer.production * (1 + (ink.total * ink.multiplier))) + (market.total * market.production * (1 + (guard.total * guard.multiplier)))));
 }
 // Updates clean money display
 function updateClean() {
     document.getElementById("cleanCash").innerHTML = prettify(cleanCash.total);
-    document.getElementById("cleanIncomePerSec").innerHTML = ((machine.total * machine.production * (1+ (detergent.total * detergent.multiplier))) + (laundromat.total * laundromat.production * (1+ (accountant.total * accountant.multiplier))));
+    document.getElementById("cleanIncomePerSec").innerHTML = prettify(((machine.total * machine.production * (1+ (detergent.total * detergent.multiplier))) + (laundromat.total * laundromat.production * (1+ (accountant.total * accountant.multiplier)))));
 }
 // Update risk progress bar
 function updateProgressBar(progressBar, value) {
@@ -356,7 +375,7 @@ window.setInterval(function(){
     if (dirtyCash.total > dirtyLimit.total) {
         document.getElementById("dirtyCash").style.color = "red";
         risk.total = (dirtyCash.total - dirtyLimit.total) / 10;
-        document.getElementById("risk").innerHTML = "Risk: " + risk.total;
+        document.getElementById("riskLevel").innerHTML = "Risk: " + prettify(risk.total);
         updateProgressBar(document.getElementById("riskProgressBar"), risk.total);
 
         // Checks for raid
@@ -371,7 +390,7 @@ window.setInterval(function(){
     } else {
         document.getElementById("dirtyCash").style.color = "";
         risk.total = 0;
-        document.getElementById("risk").innerHTML = "Risk: " + risk.total;
+        document.getElementById("riskLevel").innerHTML = "Risk: " + prettify(risk.total);
         updateProgressBar(document.getElementById("riskProgressBar"), risk.total);
         document.getElementById("raid").style.visibility = "hidden";
     }

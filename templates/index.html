@@ -19,8 +19,8 @@
             </div>
             <div class="dirtyInterface">
                 <div id="stealInterface">
-                    <input class="interfaceImage" type=image draggable="false" src="static\images\steal.png" onClick="incomeDirty(stealAmount.increment * (1 + (tape.total * tape.multiplier)))" class="hovertext" data-hover="Illegally aquire some cash!"/>
-                    <input class="interfaceUpgradeImage" type=image draggable="false" src="static\images\tape.png" onClick="buyTape()" class="hovertext" data-hover="Sticky fingers!"/>
+                    <input class="interfaceImage" id="stealButton" type=image draggable="false" src="static\images\steal.png" data-hover="Illegally aquire some cash!"/>
+                    <input class="interfaceUpgradeImage hovertext" id="buyTape" type=image draggable="false" src="static\images\tape.png" data-hover="Sticky fingers!"/>
                     <div>
                         <button type="button" onClick="incomeDirty(stealAmount.increment)" class="hovertext" data-hover="Illegally aquire some cash!">Buy Sink</button>
                         Tapes: <span id="tapes"></span>
@@ -28,8 +28,8 @@
                     </div>
                 </div>
                 <div id="moneyPrinterInterface">
-                    <input class="interfaceImage" type=image draggable="false" src="static\images\printer.png" onClick="buyPrinter()" class="hovertext" data-hover="Print some dirty money!"/>
-                    <input class="interfaceUpgradeImage" type=image draggable="false" src="static\images\ink.png" onClick="buyInk()" class="hovertext" data-hover="High quality!"/>
+                    <input class="interfaceImage" id="buyPrinter" type=image draggable="false" src="static\images\printer.png" data-hover="Print some dirty money!"/>
+                    <input class="interfaceUpgradeImage" id="buyInk" type=image draggable="false" src="static\images\ink.png" data-hover="High quality!"/>
                     <div>
                         <button type="button" onClick="buyPrinter()" class="hovertext" data-hover="Print some dirty money!">Buy Printer</button>
                         Printers: <span id="printers"></span>
@@ -41,8 +41,8 @@
                     </div>
                 </div>
                 <div id="blackMarketInterface">
-                    <input class="interfaceImage" type=image draggable="false" src="static\images\blackmarket.png" onClick="buyMarket()" class="hovertext" data-hover="Sell goods on the black market!"/>
-                    <input class="interfaceUpgradeImage" type=image draggable="false" src="static\images\guard.png" onClick="buyGuard()" class="hovertext" data-hover="Protect those goods!"/>
+                    <input class="interfaceImage" id="buyMarket" type=image draggable="false" src="static\images\blackmarket.png" data-hover="Sell goods on the black market!"/>
+                    <input class="interfaceUpgradeImage" id="buyGuard" type=image draggable="false" src="static\images\guard.png" data-hover="Protect those goods!"/>
                     <div>
                         <button type="button" onClick="buyMarket()" class="hovertext" data-hover="Sell goods on the black market!">Buy Market</button>
                         Black Markets: <span id="markets"></span>
@@ -63,8 +63,8 @@
             </div>
             <div class="cleanInterface">
                 <div id="sinkInterface">
-                    <input class="interfaceImage" type=image draggable="false" src="static\images\sink.png" onClick="launder(launderAmount.increment * (1 + (soap.total * soap.multiplier)))" class="hovertext" data-hover="Clean $1.00, minus tax of course!"/>
-                    <input class="interfaceUpgradeImage" type=image draggable="false" src="static\images\soap.png" onClick="buySoap()" class="hovertext" data-hover="Extra clean!"/>
+                    <input class="interfaceImage" id="launderButton" type=image draggable="false" src="static\images\sink.png" data-hover="Clean $1.00, minus tax of course!"/>
+                    <input class="interfaceUpgradeImage" id="buySoap" type=image draggable="false" src="static\images\soap.png" data-hover="Extra clean!"/>
                     <div>
                         <button type="button" onClick="launder(launderAmount.increment)" class="hovertext" data-hover="Increase money cleaned per click!">Buy Sink</button>
                         Soaps: <span id="soaps"></span>
@@ -72,8 +72,8 @@
                     </div>
                 </div>
                 <div id="machineInterface">
-                    <input class="interfaceImage" type=image draggable="false" src="static\images\machine.png" onClick="buyMachine()" class="hovertext" data-hover="Automagically clean your money!"/>
-                    <input class="interfaceUpgradeImage" type=image draggable="false" src="static\images\detergent.png" onClick="buyDetergent()" class="hovertext" data-hover="Kill those germs!"/>
+                    <input class="interfaceImage" id="buyMachine" type=image draggable="false" src="static\images\machine.png" data-hover="Automagically clean your money!"/>
+                    <input class="interfaceUpgradeImage" id="buyDetergent" type=image draggable="false" src="static\images\detergent.png" data-hover="Kill those germs!"/>
                     <div>
                         <button type="button" onClick="buyMachine()" class="hovertext" data-hover="Automagically clean your money!">Buy Laundry Machine</button>
                         Laundry Machines: <span id="machines"></span>
@@ -85,8 +85,8 @@
                     </div>
                 </div>
                 <div id="laundromatInterface">
-                    <input class="interfaceImage" type=image draggable="false" src="static\images\laundromat.png" onClick="buyLaundromat()"class="hovertext" data-hover="Clean even more money!"/>
-                    <input class="interfaceUpgradeImage" type=image draggable="false" src="static\images\accountant.png" onClick="buyAccountant()" class="hovertext" data-hover="Keep those books clean!"/>
+                    <input class="interfaceImage" id="buyLaundromat" type=image draggable="false" src="static\images\laundromat.png" data-hover="Clean even more money!"/>
+                    <input class="interfaceUpgradeImage" id="buyAccountant" type=image draggable="false" src="static\images\accountant.png" data-hover="Keep those books clean!"/>
                     <div>
                         <button type="button" onClick="buyLaundromat()"class="hovertext" data-hover="Clean even more money!">Buy Laundromat</button>
                         Laundromats: <span id="laundromats"></span>
@@ -124,7 +124,7 @@
 
     <div class="centered" id="raid">RAID!</div>
 
-    <span id="risk">Risk: 0</span>
+    <span id="riskLevel">Risk: 0</span>
 
     <div class="risk">
         <div class="progress" id="riskProgressBar">
