@@ -30,6 +30,7 @@ stealAmount = {
 },
 tape = {
     total: 0,
+    multiplier: 1.1,
     rate: 1.23,
     require:{
         cleanCash:50
@@ -45,6 +46,7 @@ printer = {
 },
 ink = {
     total: 0,
+    multiplier: 1.1,
     rate: 1.23,
     require:{
         cleanCash:500
@@ -60,6 +62,7 @@ market = {
 },
 guard = {
     total: 0,
+    multiplier: 1.1,
     rate: 1.23,
     require:{
         cleanCash:50000
@@ -79,6 +82,7 @@ sink = {
 },
 soap = {
     total: 0,
+    multiplier: 1.1,
     rate: 1.23,
     require:{
         cleanCash: 50
@@ -94,6 +98,7 @@ machine = {
 },
 detergent = {
     total: 0,
+    multiplier: 1.1,
     rate: 1.23,
     require:{
         cleanCash:500
@@ -109,6 +114,7 @@ laundromat = {
 } 
 accountant = {
     total: 0,
+    multiplier: 1.1,
     rate: 1.23,
     require:{
         cleanCash:50000
@@ -119,28 +125,40 @@ function initialize() {
     updateDirty();
     updateClean();
     // Quantities
+    document.getElementById("tapes").innerHTML = tape.total;
     document.getElementById("printers").innerHTML = printer.total;
+    document.getElementById("inks").innerHTML = ink.total;
     document.getElementById("markets").innerHTML = market.total;
+    document.getElementById("guards").innerHTML = guard.total;
+    document.getElementById("soaps").innerHTML = soap.total;
     document.getElementById("machines").innerHTML = machine.total;
+    document.getElementById("detergents").innerHTML = detergent.total;
     document.getElementById("laundromats").innerHTML = laundromat.total;
+    document.getElementById("accountants").innerHTML = accountant.total;
 
     // Costs
+    document.getElementById("tapeCost").innerHTML = tape.require.cleanCash;
     document.getElementById("printerCost").innerHTML = printer.require.cleanCash;
+    document.getElementById("inkCost").innerHTML = ink.require.cleanCash;
     document.getElementById("marketCost").innerHTML = market.require.cleanCash;
-    document.getElementById("sinkCost").innerHTML = sink.require.cleanCash;
+    document.getElementById("guardCost").innerHTML = guard.require.cleanCash;
+    //document.getElementById("sinkCost").innerHTML = sink.require.cleanCash;
+    document.getElementById("soapCost").innerHTML = soap.require.cleanCash;
     document.getElementById("machineCost").innerHTML = machine.require.cleanCash;
+    document.getElementById("detergentCost").innerHTML = detergent.require.cleanCash;
     document.getElementById("laundromatCost").innerHTML = laundromat.require.cleanCash;
+    document.getElementById("accountantCost").innerHTML = accountant.require.cleanCash;
 }
 
 // Updates dirty money display
 function updateDirty() {
     document.getElementById("dirtyCash").innerHTML = prettify(dirtyCash.total) + " / " + dirtyLimit.total;
-    document.getElementById("dirtyIncomePerSec").innerHTML = ((printer.total * printer.production) + (market.total * market.production))
+    document.getElementById("dirtyIncomePerSec").innerHTML = ((printer.total * printer.production * (1 + (ink.total * ink.multiplier))) + (market.total * market.production * (1 + (guard.total * guard.multiplier))))
 }
 // Updates clean money display
 function updateClean() {
     document.getElementById("cleanCash").innerHTML = prettify(cleanCash.total);
-    document.getElementById("cleanIncomePerSec").innerHTML = (machine.total * machine.production) + (laundromat.total * laundromat.production);
+    document.getElementById("cleanIncomePerSec").innerHTML = ((machine.total * machine.production * (1+ (detergent.total * detergent.multiplier))) + (laundromat.total * laundromat.production * (1+ (accountant.total * accountant.multiplier))));
 }
 // Update risk progress bar
 function updateProgressBar(progressBar, value) {
@@ -179,6 +197,18 @@ function requestDirty(amount) {
     updateDirty();
 }
 
+function buyTape() {
+    var tapeCost = Math.floor(tape.require.cleanCash * Math.pow(tape.rate, tape.total));
+    if (cleanCash.total >= tapeCost) {
+        tape.total = tape.total + 1;
+        cleanCash.total = cleanCash.total - tapeCost;
+        document.getElementById("tapes").innerHTML = tape.total;
+        updateClean();
+    }
+    var nextCost = Math.floor(tape.require.cleanCash * Math.pow(tape.rate, tape.total));
+    document.getElementById("tapeCost").innerHTML = nextCost;
+}
+
 function buyPrinter() {
     var printerCost = Math.floor(printer.require.cleanCash * Math.pow(printer.rate,printer.total));
     if (cleanCash.total >= printerCost){
@@ -191,6 +221,18 @@ function buyPrinter() {
     document.getElementById("printerCost").innerHTML = nextCost;
 }
 
+function buyInk() {
+    var inkCost = Math.floor(ink.require.cleanCash * Math.pow(ink.rate, ink.total));
+    if (cleanCash.total >= inkCost) {
+        ink.total = ink.total + 1;
+        cleanCash.total = cleanCash.total - inkCost;
+        document.getElementById("inks").innerHTML = ink.total;
+        updateClean();
+    }
+    var nextCost = Math.floor(ink.require.cleanCash * Math.pow(ink.rate, ink.total));
+    document.getElementById("inkCost").innerHTML = nextCost;
+}
+
 function buyMarket() {
     var marketCost = Math.floor(market.require.cleanCash * Math.pow(market.rate,market.total));
     if (cleanCash.total >= marketCost){
@@ -201,6 +243,18 @@ function buyMarket() {
     }
     var nextCost = Math.floor(market.require.cleanCash * Math.pow(market.rate,market.total));
     document.getElementById("marketCost").innerHTML = nextCost;
+}
+
+function buyGuard() {
+    var guardCost = Math.floor(guard.require.cleanCash * Math.pow(guard.rate, guard.total));
+    if (cleanCash.total >= guardCost) {
+        guard.total = guard.total + 1;
+        cleanCash.total = cleanCash.total - guardCost;
+        document.getElementById("guards").innerHTML = guard.total;
+        updateClean();
+    }
+    var nextCost = Math.floor(guard.require.cleanCash * Math.pow(guard.rate, guard.total));
+    document.getElementById("guardCost").innerHTML = nextCost;
 }
 
 /*
@@ -218,6 +272,18 @@ function buySink() {
 }
 */
 
+function buySoap() {
+    var soapCost = Math.floor(soap.require.cleanCash * Math.pow(soap.rate, soap.total));
+    if (cleanCash.total >= soapCost) {
+        soap.total = soap.total + 1;
+        cleanCash.total = cleanCash.total - soapCost;
+        document.getElementById("soaps").innerHTML = soap.total;
+        updateClean();
+    }
+    var nextCost = Math.floor(soap.require.cleanCash * Math.pow(soap.rate, soap.total));
+    document.getElementById("soapCost").innerHTML = nextCost;
+}
+
 function buyMachine() {
     var machineCost = Math.floor(machine.require.cleanCash * Math.pow(machine.rate,machine.total));
     if (cleanCash.total >= machineCost){
@@ -230,6 +296,18 @@ function buyMachine() {
     document.getElementById("machineCost").innerHTML = nextCost;
 }
 
+function buyDetergent() {
+    var detergentCost = Math.floor(detergent.require.cleanCash * Math.pow(detergent.rate, detergent.total));
+    if (cleanCash.total >= detergentCost) {
+        detergent.total = detergent.total + 1;
+        cleanCash.total = cleanCash.total - detergentCost;
+        document.getElementById("detergents").innerHTML = detergent.total;
+        updateClean();
+    }
+    var nextCost = Math.floor(detergent.require.cleanCash * Math.pow(detergent.rate, detergent.total));
+    document.getElementById("detergentCost").innerHTML = nextCost;
+}
+
 function buyLaundromat() {
     var laundromatCost = Math.floor(laundromat.require.cleanCash * Math.pow(laundromat.rate,laundromat.total));
     if (cleanCash.total >= laundromatCost){
@@ -240,6 +318,18 @@ function buyLaundromat() {
     }
     var nextCost = Math.floor(laundromat.require.cleanCash * Math.pow(laundromat.rate,laundromat.total));
     document.getElementById("laundromatCost").innerHTML = nextCost;
+}
+
+function buyAccountant() {
+    var accountantCost = Math.floor(accountant.require.cleanCash * Math.pow(accountant.rate, accountant.total));
+    if (cleanCash.total >= accountantCost) {
+        accountant.total = accountant.total + 1;
+        cleanCash.total = cleanCash.total - accountantCost;
+        document.getElementById("accountants").innerHTML = accountant.total;
+        updateClean();
+    }
+    var nextCost = Math.floor(accountant.require.cleanCash * Math.pow(accountant.rate, accountant.total));
+    document.getElementById("accountantCost").innerHTML = nextCost;
 }
 
 /*// adds one cursor to autoclick at an increasing cost

@@ -22,14 +22,20 @@
     width: 40%;
 }
 
-#interfaceImage {
-    max-height: 100%;
-    max-width: 25%;
+.interfaceImage {
+    height: 100%;
+    width: 25%;
 }
 
-#interfaceUpgradeImage {
-    max-height: 100%;
-    max-width: 10%;
+.interfaceUpgradeImage {
+    height: 100%;
+    width: 10%;
+}
+
+.interfaceImage:hover, .interfaceUpgradeImage:hover {
+    transform: translateY(-15px);
+    transition: transform 2s;
+    opacity: 0.8;
 }
 
 #temp {
