@@ -27,6 +27,11 @@
     max-width: 25%;
 }
 
+#interfaceUpgradeImage {
+    max-height: 100%;
+    max-width: 10%;
+}
+
 #temp {
     display: block;
     text-align: center

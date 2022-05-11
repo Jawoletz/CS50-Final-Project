@@ -28,6 +28,13 @@ stealAmount = {
     name: "stealAmount",
     increment: 1
 },
+tape = {
+    total: 0,
+    rate: 1.23,
+    require:{
+        cleanCash:50
+    }
+},
 printer = {
     total: 0,
     production: 10,
@@ -36,12 +43,26 @@ printer = {
         cleanCash:1000
     }
 },
+ink = {
+    total: 0,
+    rate: 1.23,
+    require:{
+        cleanCash:500
+    }
+},
 market = {
     total: 0,
     production: 500,
     rate: 1.23,
     require:{
         cleanCash:250000
+    }
+},
+guard = {
+    total: 0,
+    rate: 1.23,
+    require:{
+        cleanCash:50000
     }
 },
 launderAmount = {
@@ -56,12 +77,26 @@ sink = {
         cleanCash:100
     }
 },
+soap = {
+    total: 0,
+    rate: 1.23,
+    require:{
+        cleanCash: 50
+    }
+}
 machine = {
     total: 0,
     production: 10,
     rate: 1.23,
     require:{
         cleanCash:1000
+    }
+},
+detergent = {
+    total: 0,
+    rate: 1.23,
+    require:{
+        cleanCash:500
     }
 },
 laundromat = {
@@ -72,6 +107,13 @@ laundromat = {
         cleanCash:100000
     }
 } 
+accountant = {
+    total: 0,
+    rate: 1.23,
+    require:{
+        cleanCash:50000
+    }
+}
 // Initialize numbers and text
 function initialize() {
     updateDirty();
