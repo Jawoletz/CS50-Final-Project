@@ -1,13 +1,18 @@
-/*#interface {
-    float: left;
-    width: 50%;
-}*/
-
 #interface {
     text-align: center;
 }
 
+/*
 #interface div {
+    
+}
+*/
+
+#bribeTimer {
+    display: none;
+}
+
+.purchaseArea {
     margin-top: 2%;
     margin-bottom: 2%;
 }
@@ -39,7 +44,8 @@
 }
 
 #temp {
-    display: block;
+    display: inline-block;
+    width: 15%;
     text-align: center
 }
 
@@ -71,17 +77,21 @@ html button {
     visibility: hidden;
 }
 
-.progress {
-    width: 200px;
-    height: 5px;
+#riskProgressBar {
+    width: 1200px;
+    height: 25px;
     margin: 0px;
+    border-style: solid;
+    background-color: transparent;
+    border-radius: 10px
 }
 
 .progress-fill {
     width: 0%;
     border-radius: 5px;
-    background: red;
+    background: crimson;
     margin: 0px;
+    transition: width 1s;
 }
 
 .progress-text {

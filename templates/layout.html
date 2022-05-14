@@ -16,7 +16,7 @@
 
             {% block script %}{% endblock %}
     </head>
-    <body class="hero-image" onload="initialize()">
+    <body class="hero-image" onload="initializeDisplay(), initializeEventListeners()">
         <main>
             {% block main %}{% endblock %}
         </main>
