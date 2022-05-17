@@ -8,17 +8,17 @@
 
   html body {
     font-family: sans-serif;
+    -webkit-user-select: none;
     user-select: none;
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
   }
-
-  div {
-    display: block;
-}
 
   .hero-image {
     background-image: url("images/flying-money.png");
     background-color: #cccccc;
-    height: 500px;
+    height: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -32,4 +32,9 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
+  }
+
+  div {
+    height: 100%;
+    width: auto;
   }

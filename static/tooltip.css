@@ -29,3 +29,45 @@
     opacity: 0;
     visibility: hidden;
   }
+
+
+
+
+
+
+/* CLICKS PER SECOND
+    body {
+      background: #aaa;
+    }
+  
+    #container {
+      font: normal 26px sans-serif;
+      padding: 16px;
+      background: linear-gradient(#58c, #bcf);
+      box-shadow: 0 0 5px -1px, 0 0 5px #fff inset;
+      text-shadow: 0 0 5px #fff;
+      border-radius: 8px;
+    }
+  
+    #zone {
+      height: 160px;
+      margin: 0 0 16px;
+      background: #fff;
+      box-shadow: 0 0 5px -1px inset, 0 0 5px #fff;
+      border-radius: 8px;
+      transition: box-shadow .5s;
+    }
+  
+    #zone:hover {
+      box-shadow: 0 0 5px -1px inset, 0 0 5px #fff, 0 0 5px 1px #007 inset;
+    }
+  
+    #counter {
+      font-weight: bold;
+      transition: opacity .5s;
+    }
+  
+    #counter::before {
+      content: '';
+      font-weight: normal;
+    } */

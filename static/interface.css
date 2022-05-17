@@ -1,5 +1,6 @@
 #interface {
     text-align: center;
+    font-size: large;
 }
 
 /*
@@ -8,8 +9,14 @@
 }
 */
 
+.dirtyStats, .cleanStats {
+    font-size: x-large;
+}
+
 #bribeTimer {
     display: none;
+    position: absolute;
+    transform: translate(0.2em, 0.4em);
 }
 
 .purchaseArea {
@@ -27,18 +34,31 @@
     width: 40%;
 }
 
+#centerSide {
+    top: 50%;
+    left: 50%;
+}
+
+#saveInterface {
+position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    bottom: 10px;
+}
+
 .interfaceImage {
     height: 100%;
-    width: 25%;
+    width: 22%;
 }
 
 .interfaceUpgradeImage {
     height: 100%;
-    width: 10%;
+    width: 8%;
 }
 
 .interfaceImage:hover, .interfaceUpgradeImage:hover {
-    transform: translateY(-15px);
+    transform: translateY(-10px);
     transition: transform 2s;
     opacity: 0.8;
 }
@@ -58,6 +78,7 @@ html button {
     border: 2px solid black;
     background-color: #fff;
     border-radius: 10px;
+    margin: 3px;
 }
 
 .risk {
@@ -102,3 +123,4 @@ html button {
     font-style: "";
     font-family: "";
 }
+
