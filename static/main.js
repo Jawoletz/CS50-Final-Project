@@ -1,6 +1,19 @@
 
 var shops = 0;
 
+// Initial Costs
+const initialTapeCost = 10;
+const initialPrinterCost = 100;
+const initialInkCost = 50;
+const initialMarketCost = 1000;
+const initialGuardCost = 500;
+const initialSoapCost = 10;
+const initialMachineCost = 100;
+const initialDetergentCost = 50;
+const initialLaundromatCost = 1000;
+const initialAccountantCost = 600;
+const initialPoliticalBribeCost = 500;
+
 // Initialize Data
 var cleanCash = {
     name: "cleanCash",
@@ -30,106 +43,80 @@ stealAmount = {
 },
 tape = {
     total: 0,
-    multiplier: 1.1,
-    rate: 1.23,
-    cost: 50,
-    nextCost: 50
+    multiplier: 1.2,
+    rate: 1.2,
+    cost: initialTapeCost
 },
 printer = {
     total: 0,
     production: 10,
-    rate: 1.23,
-    cost: 1000,
-    nextCost: 1000
+    rate: 1.2,
+    cost: initialPrinterCost
 },
 ink = {
     total: 0,
-    multiplier: 1.1,
-    rate: 1.23,
-    cost: 500,
-    nextCost: 500
+    multiplier: 1.5,
+    rate: 1.2,
+    cost: initialInkCost
 },
 market = {
     total: 0,
-    production: 500,
-    rate: 1.23,
-    cost: 150000,
-    nextCost: 150000
+    production: 100,
+    rate: 1.2,
+    cost: initialMarketCost
 },
 guard = {
     total: 0,
-    multiplier: 1.1,
-    rate: 1.23,
-    cost: 50000,
-    nextCost: 50000
+    multiplier: 1.8,
+    rate: 1.2,
+    cost: initialGuardCost
 },
 launderAmount = {
     name: "launderAmount",
     increment: 1
 },
-sink = {
-    total: 0,
-    production: 1,
-    rate: 1.23,
-    cost: 100,
-    nextCost: 0
-},
 soap = {
     total: 0,
-    multiplier: 1.1,
-    rate: 1.23,
-    cost: 50,
-    nextCost: 50
+    multiplier: 1.2,
+    rate: 1.2,
+    cost: initialSoapCost
 },
 machine = {
     total: 0,
     production: 10,
-    rate: 1.23,
-    cost: 1000,
-    nextCost: 1000
+    rate: 1.2,
+    cost: initialMachineCost
 },
 detergent = {
     total: 0,
-    multiplier: 1.1,
-    rate: 1.23,
-    cost: 500,
-    nextCost: 500
+    multiplier: 1.5,
+    rate: 1.2,
+    cost: initialDetergentCost
 },
 laundromat = {
     total: 0,
-    production: 200,
-    rate: 1.23,
-    cost: 100000,
-    nextCost: 100000
+    production: 100,
+    rate: 1.2,
+    cost: initialLaundromatCost
 },
 accountant = {
     total: 0,
-    multiplier: 1.1,
-    rate: 1.23,
-    cost: 50000,
-    nextCost: 50000
+    multiplier: 1.8,
+    rate: 1.2,
+    cost: initialAccountantCost
 },
 politicalBribe = {
     total: 0,
-    rate: 1.23,
-    cost: 500,
-    nextCost: 500
+    rate: 1.2,
+    cost: initialPoliticalBribeCost,
 },
-multiplier = {
+relocateBonus = {
     total: 0,
+    cost: 10000,
     manual: 1,
     auto: 1,
     dirtyLimit: 1
 }
-
-/*
-policeBribe = {
-    total: 0,
-    rate: 1.23,
-    
-        cleanCash:500
-    }
-}*/
 
 // Initialize numbers and text
 function initializeDisplay() {
@@ -150,23 +137,25 @@ function initializeDisplay() {
     document.getElementById("accountants").innerHTML = accountant.total;
 
     // Costs
-    document.getElementById("tapeCost").innerHTML = tape.nextCost;
-    document.getElementById("printerCost").innerHTML = printer.nextCost;
-    document.getElementById("inkCost").innerHTML = ink.nextCost;
-    document.getElementById("marketCost").innerHTML = market.nextCost;
-    document.getElementById("guardCost").innerHTML = guard.nextCost;
-    //document.getElementById("sinkCost").innerHTML = sink.nextCost;
-    document.getElementById("soapCost").innerHTML = soap.nextCost;
-    document.getElementById("machineCost").innerHTML = machine.nextCost;
-    document.getElementById("detergentCost").innerHTML = detergent.nextCost;
-    document.getElementById("laundromatCost").innerHTML = laundromat.nextCost;
-    document.getElementById("accountantCost").innerHTML = accountant.nextCost;
+    document.getElementById("tapeCost").innerHTML = tape.cost;
+    document.getElementById("printerCost").innerHTML = printer.cost;
+    document.getElementById("inkCost").innerHTML = ink.cost;
+    document.getElementById("marketCost").innerHTML = market.cost;
+    document.getElementById("guardCost").innerHTML = guard.cost;
+    //document.getElementById("sinkCost").innerHTML = sink.cost;
+    document.getElementById("soapCost").innerHTML = soap.cost;
+    document.getElementById("machineCost").innerHTML = machine.cost;
+    document.getElementById("detergentCost").innerHTML = detergent.cost;
+    document.getElementById("laundromatCost").innerHTML = laundromat.cost;
+    document.getElementById("accountantCost").innerHTML = accountant.cost;
+    document.getElementById("politicalBribeCost").innerHTML = "Cost: " + politicalBribe.cost;
+    document.getElementById("relocateCost").innerHTML = "Cost: " + relocateBonus.cost;
     }
 
     function initializeEventListeners() {
     // Add event listeners
     document.getElementById("stealButton").addEventListener("click", function() {
-        incomeDirty(stealAmount.increment * multiplier.manual * (1 + (tape.total * tape.multiplier)));
+        incomeDirty(stealAmount.increment * relocateBonus.manual * (1 + (tape.total * tape.multiplier)));
     });
     document.getElementById("buyTape").addEventListener("click", buyTape);
     document.getElementById("buyPrinter").addEventListener("click", buyPrinter);
@@ -175,7 +164,7 @@ function initializeDisplay() {
     document.getElementById("buyGuard").addEventListener("click", buyGuard);
     //document.getElementById("sinkCost").addEventListener("click", );
     document.getElementById("launderButton").addEventListener("click", function() {
-        launder(launderAmount.increment * multiplier.manual * (1 + (soap.total * soap.multiplier)));
+        launder(launderAmount.increment * relocateBonus.manual * (1 + (soap.total * soap.multiplier)));
     });
     document.getElementById("buySoap").addEventListener("click", buySoap);
     document.getElementById("buyMachine").addEventListener("click", buyMachine);
@@ -203,12 +192,12 @@ function initializeDisplay() {
 // Updates dirty money display
 function updateDirty() {
     document.getElementById("dirtyCash").innerHTML = prettify(dirtyCash.total) + " / " + dirtyLimit.total;
-    document.getElementById("dirtyIncomePerSec").innerHTML = prettify((multiplier.auto * ((printer.total * printer.production * (1 + (ink.total * ink.multiplier))) + (market.total * market.production * (1 + (guard.total * guard.multiplier))))));
+    document.getElementById("dirtyIncomePerSec").innerHTML = prettify((relocateBonus.auto * ((printer.total * printer.production + (ink.total * ink.multiplier)) + (market.total * market.production + (guard.total * guard.multiplier)))));
 }
 // Updates clean money display
 function updateClean() {
     document.getElementById("cleanCash").innerHTML = prettify(cleanCash.total);
-    document.getElementById("cleanIncomePerSec").innerHTML = prettify((multiplier.auto * (1 - tax.rate) * ((machine.total * machine.production * (1+ (detergent.total * detergent.multiplier))) + (laundromat.total * laundromat.production * (1+ (accountant.total * accountant.multiplier))))));
+    document.getElementById("cleanIncomePerSec").innerHTML = prettify(relocateBonus.auto * (1- tax.rate) * ((machine.total * machine.production + (detergent.total * detergent.multiplier)) + (laundromat.total * laundromat.production + (accountant.total * accountant.multiplier))));
 }
 
 // updates tax rate display
@@ -253,158 +242,140 @@ function requestDirty(amount) {
 }
 
 function buyTape() {
-    tape.cost = Math.floor(tape.cost * Math.pow(tape.rate, tape.total));
     if (cleanCash.total >= tape.cost) {
         tape.total = tape.total + 1;
         cleanCash.total = cleanCash.total - tape.cost;
         document.getElementById("tapes").innerHTML = tape.total;
         updateClean();
         updateDirty();
+        tape.cost = Math.floor(initialTapeCost * Math.pow(tape.rate, tape.total));
+        document.getElementById("tapeCost").innerHTML = tape.cost;
     }
-    tape.nextCost = Math.floor(tape.cost * Math.pow(tape.rate, tape.total));
-    document.getElementById("tapeCost").innerHTML = tape.nextCost;
+    
 }
 
 function buyPrinter() {
-    printer.cost = Math.floor(printer.cost * Math.pow(printer.rate,printer.total));
     if (cleanCash.total >= printer.cost){
         printer.total = printer.total + 1;
         cleanCash.total = cleanCash.total - printer.cost;
         document.getElementById("printers").innerHTML = printer.total;
         updateClean();
         updateDirty();
+        printer.cost = Math.floor(initialPrinterCost * Math.pow(printer.rate, printer.total));
+        document.getElementById("printerCost").innerHTML = printer.cost;
     }
-    printer.nextCost = Math.floor(printer.cost * Math.pow(printer.rate,printer.total));
-    document.getElementById("printerCost").innerHTML = printer.nextCost;
 }
 
 function buyInk() {
-    ink.cost = Math.floor(ink.cost * Math.pow(ink.rate, ink.total));
     if (cleanCash.total >= ink.cost) {
         ink.total = ink.total + 1;
         cleanCash.total = cleanCash.total - ink.cost;
         document.getElementById("inks").innerHTML = ink.total;
         updateClean();
         updateDirty();
+        ink.cost = Math.floor(initialInkCost * Math.pow(ink.rate, ink.total));
+        document.getElementById("inkCost").innerHTML = ink.cost;
     }
-    ink.nextCost = Math.floor(ink.cost * Math.pow(ink.rate, ink.total));
-    document.getElementById("inkCost").innerHTML = ink.nextCost;
+
 }
 
 function buyMarket() {
-    market.cost = Math.floor(market.cost * Math.pow(market.rate,market.total));
     if (cleanCash.total >= market.cost){
         market.total = market.total + 1;
         cleanCash.total = cleanCash.total - market.cost;
         document.getElementById("markets").innerHTML = market.total;
         updateClean();
         updateDirty();
+        market.cost = Math.floor(initialMarketCost * Math.pow(market.rate,market.total));
+        document.getElementById("marketCost").innerHTML = market.cost;
     }
-    market.nextCost = Math.floor(market.cost * Math.pow(market.rate,market.total));
-    document.getElementById("marketCost").innerHTML = market.nextCost;
+    
 }
 
 function buyGuard() {
-    guard.cost = Math.floor(guard.cost * Math.pow(guard.rate, guard.total));
     if (cleanCash.total >= guard.cost) {
         guard.total = guard.total + 1;
         cleanCash.total = cleanCash.total - guard.cost;
         document.getElementById("guards").innerHTML = guard.total;
         updateClean();
         updateDirty();
+        guard.cost = Math.floor(initialGuardCost * Math.pow(guard.rate, guard.total));
+        document.getElementById("guardCost").innerHTML = guard.cost;
     }
-    guard.nextCost = Math.floor(guard.cost * Math.pow(guard.rate, guard.total));
-    document.getElementById("guardCost").innerHTML = gaurd.nextCost;
 }
-
-/*
-function buySink() {
-    // var sinkCost = 
-    var sinkCost = Math.floor(sink.cost * Math.pow(sink.rate,sink.total));
-    if (cleanCash.total >= sinkCost){
-        sink.total = sink.total + 1;
-        cleanCash.total = cleanCash.total - sinkCost;
-        document.getElementById("sinks").innerHTML = sink.total;
-        updateClean();
-    }
-    var nextCost = Math.floor(sink.cost * Math.pow(sink.rate,sink.total));
-    document.getElementById("sinkCost").innerHTML = nextCost;
-}
-*/
 
 function buySoap() {
-    soap.cost = Math.floor(soap.cost * Math.pow(soap.rate, soap.total));
     if (cleanCash.total >= soap.cost) {
         soap.total = soap.total + 1;
         cleanCash.total = cleanCash.total - soap.cost;
         document.getElementById("soaps").innerHTML = soap.total;
         updateClean();
         updateDirty();
+        soap.cost = Math.floor(initialSoapCost * Math.pow(soap.rate, soap.total));
+        document.getElementById("soapCost").innerHTML = soap.cost;
     }
-    soap.nextCost = Math.floor(soap.cost * Math.pow(soap.rate, soap.total));
-    document.getElementById("soapCost").innerHTML = soap.nextCost;
+
 }
 
 function buyMachine() {
-    machine.cost = Math.floor(machine.cost * Math.pow(machine.rate,machine.total));
     if (cleanCash.total >= machine.cost){
         machine.total = machine.total + 1;
         cleanCash.total = cleanCash.total - machine.cost;
         document.getElementById("machines").innerHTML = machine.total;
         updateClean();
         updateDirty();
+        machine.cost = Math.floor(initialMachineCost * Math.pow(machine.rate, machine.total));
+        document.getElementById("machineCost").innerHTML = machine.cost;
     }
-    machine.nextCost = Math.floor(machine.cost * Math.pow(machine.rate,machine.total));
-    document.getElementById("machineCost").innerHTML = machine.nextCost;
+
 }
 
 function buyDetergent() {
-    detergent.cost = Math.floor(detergent.cost * Math.pow(detergent.rate, detergent.total));
     if (cleanCash.total >= detergent.cost) {
         detergent.total = detergent.total + 1;
         cleanCash.total = cleanCash.total - detergent.cost;
         document.getElementById("detergents").innerHTML = detergent.total;
         updateClean();
         updateDirty();
+        detergent.cost = Math.floor(initialDetergentCost * Math.pow(detergent.rate, detergent.total));
+        document.getElementById("detergentCost").innerHTML = detergent.cost;
     }
-    detergent.nextCost = Math.floor(detergent.cost * Math.pow(detergent.rate, detergent.total));
-    document.getElementById("detergentCost").innerHTML = detergent.nextCost;
 }
 
 function buyLaundromat() {
-    laundromat.cost = Math.floor(laundromat.cost * Math.pow(laundromat.rate,laundromat.total));
     if (cleanCash.total >= laundromat.cost){
         laundromat.total = laundromat.total + 1;
         cleanCash.total = cleanCash.total - laundromat.cost;
         document.getElementById("laundromats").innerHTML = laundromat.total;
         updateClean();
         updateDirty();
+        laundromat.cost = Math.floor(initialLaundromatCost * Math.pow(laundromat.rate, laundromat.total));
+        document.getElementById("laundromatCost").innerHTML = laundromat.cost;
     }
-    laundromat.nextCost = Math.floor(laundromat.cost * Math.pow(laundromat.rate,laundromat.total));
-    document.getElementById("laundromatCost").innerHTML = laundromat.nextCost;
 }
 
 function buyAccountant() {
-    accountant.cost = Math.floor(accountant.cost * Math.pow(accountant.rate, accountant.total));
     if (cleanCash.total >= accountant.cost) {
         accountant.total = accountant.total + 1;
         cleanCash.total = cleanCash.total - accountant.cost;
         document.getElementById("accountants").innerHTML = accountant.total;
         updateClean();
         updateDirty();
+        accountant.cost = Math.floor(initialAccountantCost * Math.pow(accountant.rate, accountant.total));
+        document.getElementById("accountantCost").innerHTML = accountant.cost;
     }
-    accountant.nextCost = Math.floor(accountant.cost * Math.pow(accountant.rate, accountant.total));
-    document.getElementById("accountantCost").innerHTML = accountant.nextCost;
 }
 
 // Temporarily reduces tax rate to 0% for an increasing price
 function bribePolitician() {
-    politicalBribe.cost = Math.floor(politicalBribe.cost * Math.pow(politicalBribe.rate, politicalBribe.total));
     if (cleanCash.total > politicalBribe.cost) {
         politicalBribe.total = politicalBribe.total + 1;
         cleanCash.total = cleanCash.total - politicalBribe.cost;
         document.getElementById("politicalBribe").disabled = true;
-        politicalBribe.nextCost = Math.floor(politicalBribe.cost * Math.pow(politicalBribe.rate, politicalBribe.total));
+        politicalBribe.cost = Math.floor(initialPoliticalBribeCost * Math.pow(politicalBribe.rate, politicalBribe.total));
+        document.getElementById("politicalBribeCost").innerHTML = "Bribe: " + politicalBribe.cost;
+        updateClean();
+        updateDirty();
         tax.rate = 0;
         updateTaxRate();
             bribeCount = 5;
@@ -420,28 +391,26 @@ function bribePolitician() {
                 clearInterval(bribeTimer);
             }
         }, 1000)
-        /*
-        setTimeout(function() {
-           tax.rate = 0.2
-           updateTaxRate(); 
-        }, 5000)*/
     }
 }
 
 function relocate() {
-    // Adjust multipliers
-    multiplier.total += 1;
-    multiplier.manual *= 10;
-    multiplier.auto *= 5;
-    multiplier.dirtyLimit *= 10;
-    dirtyLimit.total *= multiplier.dirtyLimit;
+    if (cleanCash.total >= relocateBonus.cost) {
+        // Adjust multipliers
+        relocateBonus.total += 1;
+        relocateBonus.cost *= 10;
+        relocateBonus.manual *= 10;
+        relocateBonus.auto *= 5;
+        relocateBonus.dirtyLimit *= 10;
+        dirtyLimit.total *= relocateBonus.dirtyLimit;
 
-    resetProgress();
+        resetProgress();
 
-    // Update stats
-    updateDirty();
-    updateClean();
-    updateTaxRate();
+        // Update stats
+        updateDirty();
+        updateClean();
+        updateTaxRate();
+    }
 }
 
 function resetProgress() {
@@ -454,87 +423,41 @@ function resetProgress() {
     ink.total = 0;
     market.total = 0;
     guard.total = 0;
-    sink.total = 0;
     soap.total = 0;
     machine.total = 0;
     detergent.total = 0;
     laundromat.total = 0;
     accountant.total = 0;
+    politicalBribe.total = 0;
+
+    tape.cost = initialTapeCost;
+    printer.cost = initialPrinterCost;
+    ink.cost = initialInkCost; 
+    market.cost = initialMarketCost;
+    guard.cost = initialGuardCost;
+    soap.cost = initialSoapCost;
+    machine.cost = initialMachineCost;
+    detergent.cost = initialDetergentCost;
+    laundromat.cost = initialLaundromatCost;
+    accountant.cost = initialAccountantCost;
+    politicalBribe.cost = initialPoliticalBribeCost;
+
+    tape
+    printer
+    ink
+    market
+    guard
+    soap
+    machine
+    detergent
+    laundromat
+    accountant
+    politicalBribe
 
     document.getElementById("riskLevel").innerHTML = "Risk: " + prettify(risk.total);
     updateProgressBar(document.getElementById("riskProgressBar"), risk.total);
     initializeDisplay();
 }
-
-/*
-function bribePolice() {
-    var bribePoliceCost = Math.floor(policeBribe.cost * Math.pow(policeBribe.rate, policeBribe.total));
-    if (cleanCash.total > policeBribe.cost) {
-        policeBribe.total = policeBribe.total + 1;
-        cleanCash.total = cleanCash.total - bribePoliceCost;
-        setTimeout(function() {
-            
-        }, 5000)
-    }
-}*/
-
-/*// adds one cursor to autoclick at an increasing cost
-function buyShop() {
-    var shopCost = Math.floor(10 * Math.pow(1.1,shops));    // works out the cost of this cursor (10 * 1.1^n) rounding down to avoid fractions
-    if (cleanCash.total >= shopCost){                                 // check that the player can affors cursor
-        shops = shops + 1;                                  // increases number of cursors
-        cleanCash.total = cleanCash.total - shopCost;                         // removes cookies spent
-        document.getElementById("shops").innerHTML = shops; // updates the number of cursors for the user
-        document.getElementById("cleanCash").innerHTML = "Clean $: " + prettify(cleanCash.total); // updates the number of cookies for the user
-    };
-    var nextCost = Math.floor(10 * Math.pow(1.1,shops));      // works out the cost of next cursor (10 * 1.1^n) rounding down to avoid fractions
-    document.getElementById("cursorCost").innerHTML = nextCost; // updates cursor cost for the user
-}; */
-
-/* CLICKS PER SECOND
-var started, resetTimeoutHandle, resetTimeout = 1000,
-    container = document.getElementById('container'),
-    counter = document.getElementById('counter'),
-    zone = document.getElementById('zone'),
-    clicks = 0;
-
-zone.onseclect = zone.onselectstart = function () {
-    return false;
-};
-
-function clicksPerSecond(started, clicks) {
-    return Math.round(clicks / ((new Date()) - started) * 1000);
-}
-
-function count() {
-    clearTimeout(resetTimeoutHandle);
-    clicks++;
-    counter.innerText = clicksPerSecond(started, clicks);
-    resetTimeoutHandle = setTimeout(reset, resetTimeout);
-    return false;
-}
-
-function start() {
-    started = new Date();
-    clicks = 0;
-    counter.style.opacity = 1;
-    this.onmousedown = count;
-    this.onmousedown();
-    return false;
-}
-
-function reset() {
-    zone.onmousedown = start;
-    counter.style.opacity = 0.3;
-}
-
-reset();
-*/
-
-
-
-
-
 
 // executes everything inside the curly braces once every 1000ms (1 second)
 function startGeneralUpdate() {
@@ -543,8 +466,8 @@ function startGeneralUpdate() {
 
 function generalUpdate() {
     // Handles income per second of dirty and clean cash                           
-    incomeDirty(multiplier.auto * ((printer.total * printer.production * (1 + (ink.total * ink.multiplier))) + (market.total * market.production * (1 + (guard.total * guard.multiplier)))));
-    launder(multiplier.auto * ((machine.total * machine.production * (1 + (detergent.total * detergent.multiplier))) + (laundromat.total * laundromat.production * (1 + (accountant.total * accountant.multiplier)))));
+    incomeDirty(relocateBonus.auto * ((printer.total * printer.production + (ink.total * ink.multiplier))) + (market.total * market.production + (guard.total * guard.multiplier)));
+    launder(relocateBonus.auto * ((machine.total * machine.production + (detergent.total * detergent.multiplier))) + (laundromat.total * laundromat.production + (accountant.total * accountant.multiplier)));
     //increaseDirtyIncome(2);
 
     // Change dirty cash to red when above limit
@@ -560,6 +483,7 @@ function generalUpdate() {
         if (x < risk.total) {
             console.log("Raid!");
             dirtyCash.total = 0;
+            cleanCash.total = 0;
             risk.total = 0;
             document.getElementById("raid").style.visibility = "visible";
         }
@@ -587,18 +511,13 @@ function save() {
         market: market,
         guard: guard,
         launderAmount: launderAmount,
-        sink: sink,
         soap: soap,
         machine: machine,
         detergent: detergent,
         laundromat: laundromat,
         accountant: accountant,
         politicalBribe: politicalBribe,
-        multiplier: multiplier
-        
-        //cookies: cookies,
-        //cursors: shops,
-        //prestige: prestige
+        relocateBonus: relocateBonus
     }
     localStorage.setItem("save",JSON.stringify(save));          // stringify converts object to string and stores locally
 }
@@ -626,9 +545,12 @@ function load() {
     if (typeof savegame.laundromat !== "undefined") laundromat = savegame.laundromat;
     if (typeof savegame.accountant !== "undefined") accountant = savegame.accountant;
     if (typeof savegame.politicalBribe !== "undefined") politicalBribe = savegame.politicalBribe;
-    if (typeof savegame.multiplier !== "undefined") multiplier = savegame.multiplier;
+    if (typeof savegame.relocateBonus !== "undefined") relocateBonus = savegame.relocateBonus;
 
     initializeDisplay();
+    updateDirty();
+    updateClean();
+    updateTaxRate();
 }
 
 function deleteSave() {

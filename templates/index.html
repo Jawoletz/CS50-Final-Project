@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Home
+    MoneyClicker
 {% endblock %}
 
 {% block script %}
@@ -110,11 +110,13 @@
                 <div id="bribeInterface">
                     <button type="button" id="politicalBribe" title="Temporarily reduce taxes!">Bribe Politician</button>
                     <span id="bribeTimer"></span>
+                    <span id="politicalBribeCost"></span>
                     <!--<button type="button" id="policeBribe" title="Temporarily disable raids!">Bribe Police</button>-->
                 </div>
-                <div>
+                <!--<div>
                     <button type="button" id="relocate" title="Get (the hell) outta Dodge and start over!">Relocate</button>
-                </div>
+                    <span id="relocateCost"></span>
+                </div>-->
             <!-- CLICKS PER SECOND
 
                 <div id="container">
